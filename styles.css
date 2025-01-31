@@ -1,0 +1,115 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center everything in a container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+/* Input Fields and Labels */
+label {
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button Colors */
+#lookupButton {
+    background-color: #6c7e62;
+    color: white;
+}
+
+#clearButton {
+    background-color: #7a8e73;
+    color: white;
+}
+
+/* Button Hover States */
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Buttons in a single row */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+/* Search Box */
+#wineSearch {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Search Suggestions */
+#searchSuggestions .suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#searchSuggestions .suggestion-item:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Description Box */
+#outputText {
+    min-height: 4.5em;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-height: 300px;
+    overflow-y: auto;
+}

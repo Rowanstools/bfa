@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Lookup Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wine Lookup Tool</h1>
+        </header>
+
+        <!-- Search Box Section -->
+        <div>
+            <label for="wineSearch">Search Wine:</label>
+            <input type="text" id="wineSearch" placeholder="Search wine names..." />
+
+            <!-- Wine suggestions dropdown -->
+            <div id="searchSuggestions" style="position: absolute; background-color: white; border: 1px solid #ddd; width: 100%; max-height: 150px; overflow-y: auto; display: none;"></div>
+        </div>
+
+        <!-- Wine Lookup Section -->
+        <div>
+            <label for="vintageInput">Vintage Year:</label>
+            <input type="text" id="vintageInput" placeholder="Enter vintage year">
+
+            <label for="bottlesInput">Number of Bottles:</label>
+            <input type="text" id="bottlesInput" placeholder="Enter number of bottles">
+
+            <div class="button-group">
+                <button id="lookupButton">Lookup</button>
+                <button id="clearButton">Clear</button>
+            </div>
+        </div>
+
+        <!-- Output Section -->
+        <div>
+            <label for="outputText">Description:</label>
+            <div id="outputText"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
