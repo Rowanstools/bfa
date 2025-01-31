@@ -1,6 +1,6 @@
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Tesla', Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
@@ -11,7 +11,7 @@ body {
 /* Center everything in a container */
 .container {
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 20px auto; /* Reduce space by setting the margin to 20px instead of the default */
     padding: 20px;
 }
 
@@ -23,6 +23,7 @@ h1 {
     color: #333;
     margin-bottom: 20px;
     letter-spacing: 2px;
+    margin-top: 10px;  /* Further reduce the space above the title */
 }
 
 /* Input Fields and Labels */
@@ -43,6 +44,10 @@ input[type="text"] {
     box-sizing: border-box;
 }
 
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
 /* Button Styles */
 button {
     padding: 12px 20px;
@@ -57,12 +62,17 @@ button {
 
 /* Button Colors */
 #lookupButton {
-    background-color: #6c7e62;
+    background-color: #6c7e62; /* Deep muted green */
+    color: white;
+}
+
+#copyButton {
+    background-color: #8ba78d; /* Soft pastel green */
     color: white;
 }
 
 #clearButton {
-    background-color: #7a8e73;
+    background-color: #7a8e73; /* Slightly deeper green */
     color: white;
 }
 
@@ -70,6 +80,11 @@ button {
 button:hover {
     opacity: 0.9;
     transform: translateY(-2px);
+}
+
+/* Button Active (Pressed State) */
+button:active {
+    transform: translateY(1px);
 }
 
 /* Buttons in a single row */
@@ -80,7 +95,7 @@ button:hover {
 }
 
 /* Search Box */
-#wineSearch {
+#descriptionSearch {
     width: 100%;
     padding: 12px;
     font-size: 1rem;
@@ -104,7 +119,7 @@ button:hover {
 
 /* Description Box */
 #outputText {
-    min-height: 4.5em;
+    min-height: 4.5em; /* Enough space for ~3 lines of text */
     padding: 10px;
     border: 1px solid #ddd;
     background: #fff;
@@ -112,4 +127,40 @@ button:hover {
     line-height: 1.6;
     max-height: 300px;
     overflow-y: auto;
+}
+
+/* Align checkboxes horizontally */
+.checkbox-group {
+    display: flex;
+    gap: 10px; /* Reduced gap */
+    align-items: center;
+}
+
+/* Adjust the size of checkboxes and text */
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px; /* Reduced margin */
+}
+
+.checkbox-group label {
+    font-size: 1.1rem;
+    margin-left: 0; /* Removed margin */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
 }

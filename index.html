@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wine Lookup Tool</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>BFA Model Lookup</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file -->
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Wine Lookup Tool</h1>
+            <h1>BFA Model Lookup</h1>
         </header>
 
         <!-- Search Box Section -->
         <div>
-            <label for="wineSearch">Search Wine:</label>
-            <input type="text" id="wineSearch" placeholder="Search wine names..." />
+            <label for="descriptionSearch">Search Description:</label>
+            <input type="text" id="descriptionSearch" placeholder="Search descriptions..." />
 
-            <!-- Wine suggestions dropdown -->
+            <!-- Search suggestions dropdown -->
             <div id="searchSuggestions" style="position: absolute; background-color: white; border: 1px solid #ddd; width: 100%; max-height: 150px; overflow-y: auto; display: none;"></div>
         </div>
 
-        <!-- Wine Lookup Section -->
+        <!-- Model Lookup Section -->
         <div>
-            <label for="vintageInput">Vintage Year:</label>
-            <input type="text" id="vintageInput" placeholder="Enter vintage year">
+            <label for="modelInput">Model Numbers:</label>
+            <input type="text" id="modelInput" placeholder="Enter model numbers, separated by commas">
 
-            <label for="bottlesInput">Number of Bottles:</label>
-            <input type="text" id="bottlesInput" placeholder="Enter number of bottles">
+            <label for="limitedEditionInput">Limited Edition Numbers:</label>
+            <input type="text" id="limitedEditionInput" placeholder="Enter limited edition numbers, separated by commas">
+
+            <!-- Checkboxes in a single row -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="baseCheckbox">
+                <label for="baseCheckbox">On Wood Base</label>
+
+                <input type="checkbox" id="boxCheckbox">
+                <label for="boxCheckbox">With Box</label>
+
+                <input type="checkbox" id="certificateCheckbox">
+                <label for="certificateCheckbox">With Certificate</label>
+            </div>
 
             <div class="button-group">
                 <button id="lookupButton">Lookup</button>
+                <button id="copyButton" disabled>Copy</button>
                 <button id="clearButton">Clear</button>
             </div>
         </div>
@@ -42,7 +55,8 @@
         </div>
     </div>
 
+    <!-- Include PapaParse for CSV parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Include your JavaScript file -->
 </body>
 </html>
