@@ -11,11 +11,24 @@ window.onload = function () {
         }
     });
 
-    // Lookup functionality
+    // Lookup functionality - now also triggers on Enter key press
     document.getElementById('lookupButton').addEventListener('click', performLookup);
+    document.getElementById('modelInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent form submission if inside a form
+            performLookup();
+        }
+    });
+    document.getElementById('limitedEditionInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            performLookup();
+        }
+    });
 
     // Enable search filtering
-    document.getElementById('descriptionSearch').addEventListener('input', function (e) {
+    const descriptionSearch = document.getElementById('descriptionSearch');
+    descriptionSearch.addEventListener('input', function (e) {
         const query = e.target.value.toLowerCase().trim();
         const dropdown = document.getElementById('searchSuggestions');
 
@@ -45,7 +58,7 @@ window.onload = function () {
 
                     dropdown.innerHTML = ''; // Clear dropdown
                     dropdown.style.display = 'none'; // Hide dropdown
-                    document.getElementById('descriptionSearch').value = ''; // Clear search box
+                    descriptionSearch.value = ''; // Clear search box
 
                     performLookup(); // Perform lookup after selection
                 });
@@ -57,11 +70,20 @@ window.onload = function () {
         }
     });
 
-    // Hide search suggestions when clicking outside
-    document.addEventListener('click', function (event) {
+    // Hide search suggestions when clicking outside or when Enter is pressed
+    document.addEventListener('click', function(event) {
         const dropdown = document.getElementById('searchSuggestions');
         if (!event.target.closest('#descriptionSearch') && !event.target.closest('#searchSuggestions')) {
             dropdown.style.display = 'none';
+        }
+    });
+    descriptionSearch.addEventListener('keydown', function(e) {
+        if ((e.key === 'Enter' || e.key === 'Tab') && document.getElementById('searchSuggestions').style.display === 'block') {
+            e.preventDefault();
+            const suggestions = document.querySelectorAll('.suggestion-item');
+            if (suggestions.length > 0) {
+                suggestions[0].click(); // Select the first suggestion if any exist
+            }
         }
     });
 
@@ -85,13 +107,12 @@ window.onload = function () {
             console.error('Could not copy text: ', err);
         });
     });
-    
 
     // Clear All functionality
     document.getElementById('clearButton').addEventListener('click', function () {
         document.getElementById('modelInput').value = '';
         document.getElementById('limitedEditionInput').value = '';
-        document.getElementById('descriptionSearch').value = '';
+        descriptionSearch.value = '';
         document.getElementById('outputText').innerHTML = '';
         document.getElementById('copyButton').disabled = true; // Disable copy button after clearing
         document.getElementById('searchSuggestions').innerHTML = ''; // Clear dropdown
@@ -114,6 +135,7 @@ function performLookup() {
 
     let outputs = [];
     let includeBorderFineArts = true;
+    let leIndex = 0; // Index for tracking which limited edition number to use
 
     modelNumbers.forEach((modelNumber, index) => {
         const modelInfo = modelsData.find(model => model.model_number.toLowerCase() === modelNumber.toLowerCase());
@@ -121,9 +143,12 @@ function performLookup() {
         if (modelInfo) {
             let description = modelInfo.description;
 
-            // Insert limited edition number if available
-            if (limitedEditionNumbers[index]) {
-                description = description.replace('*/', limitedEditionNumbers[index] + '/');
+            // Apply limited edition number to models with placeholders
+            if (description.includes('*/')) {
+                if (leIndex < limitedEditionNumbers.length) {
+                    description = description.replace('*/', limitedEditionNumbers[leIndex] + '/');
+                    leIndex++; // Move to the next limited edition number
+                }
             }
 
             // Remove "Border Fine Arts" for all models except the first
@@ -133,8 +158,8 @@ function performLookup() {
                 includeBorderFineArts = false; // Only include for the first model
             }
 
-            // Make the first part bold
-            const firstCommaIndex = description.indexOf(',');
+            const firstCommaIndex = findFirstCommaOutsideParentheses(description);
+
             if (firstCommaIndex !== -1) {
                 const boldPart = description.substring(0, firstCommaIndex + 1);
                 const restPart = description.substring(firstCommaIndex + 1);
@@ -181,6 +206,21 @@ function performLookup() {
 
     document.getElementById('outputText').innerHTML = finalOutput;
     document.getElementById('copyButton').disabled = !finalOutput; // Enable copy if there's output
+}
+
+// Helper function to find the first comma outside of parentheses
+function findFirstCommaOutsideParentheses(str) {
+    let inParentheses = false;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(') {
+            inParentheses = true;
+        } else if (str[i] === ')') {
+            inParentheses = false;
+        } else if (str[i] === ',' && !inParentheses) {
+            return i;
+        }
+    }
+    return -1;  // No comma found outside parentheses
 }
 
 // Function to get the output string based on the checkbox states
